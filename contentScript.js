@@ -19,3 +19,20 @@ chrome.storage.sync.get("redirectEnabled", (data) => {
     });
   }
 });
+
+chrome.storage.sync.get("selectEnabled", (data) => {
+  if (
+    data.selectEnabled &&
+    window.location.href.includes(
+      "https://gaishishukatsu.com/selection_reports/"
+    )
+  ) {
+    const observer = new MutationObserver(() => {
+      document.querySelectorAll(".select-none").forEach((element) => {
+        element.classList.remove("select-none");
+      });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+});
